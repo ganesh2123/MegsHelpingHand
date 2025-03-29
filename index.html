@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meg's Helping Hand</title>
+    <link rel="icon" href="images/Megs.logo.jpg" type="image/x-icon"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.139.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        .container {
+            width: 100%;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #82d0b083;
+            color: #8b7e7e;
+            line-height: 1.3;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: #217b75;
+            box-shadow: 0 2px 5px rgba(201, 158, 158, 0.1);
+            padding: 5px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: background-color 0.8s ease;
+        }
+
+        header:hover {
+            background-color: rgb(11, 108, 98);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav .logo {
+            font-size: 3em;
+            font-weight: 700;
+            color: hsl(220, 11%, 95%);
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 2px 2px 4px rgba(242, 245, 246, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        nav .logo:hover {
+            transform: scale(1.08);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-left: 40px;
+        }
+
+        nav ul li a {
+            color: #f6f8f8;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+            transform: translateY(-2px);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            width: 0%;
+            height: 2px;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            text-align: left;
+            padding: 50px 20px 300px 20px;
+            background-image: linear-gradient(to bottom, rgba(231, 217, 217, 0.4), rgba(234, 223, 223, 0.6)), url('images/Megs.logo.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transform: translateZ(0);
+            perspective: 1000px;
+            transition: background-image 0.3s ease;
+        }
+
+        .hero:hover {
+            background-image: linear-gradient(to bottom, rgba(120, 230, 247, 0.5), rgba(0, 0, 0, 0.7)), url('career-hero.jpg');
+        }
+
+        .hero h1 {
+            font-size: 5em;
+            margin-bottom: 40px;
+            font-weight: 600;
+            color: #fff;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+            max-width: 800px;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.2;
+            transition: transform 0.3s ease;
+        }
+
+        .hero h1:hover {
+            transform: scale(1.06);
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 50px;
+            color: #eee;
+            line-height: 1.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            max-width: 750px;
+            transition: transform 0.3s ease;
+        }
+
+        .hero p:hover {
+            transform: scale(1.04);
+        }
+
+        .hero button {
+            background-color: #007bff;
+            color: rgb(255, 255, 255);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        .hero button:hover {
+            background-color: #0056b3;
+            transform: translateY(-4px);
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+
+        .what-we-offer {
+            max-width: 900px;
+            margin: 120px auto;
+            padding: 30px;
+            text-align: center;
+            background-image:
+                radial-gradient(circle at center, #65f0d7 0%, #e0e0e0 70%, #d0d0d0 100%);
+            box-shadow: 0 5px 12px rgba(86, 219, 210, 0.1);
+            border-radius: 15px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .what-we-offer:hover {
+            transform: translateY(-3px);
+            background-color: #f5f5f5;
+        }
+
+        .what-we-offer h2 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+
+        .what-we-offer h2:hover {
+            color: #007bff;
+        }
+
+        .what-we-offer p {
+            font-size: 1.3em;
+            color: #555;
+            line-height: 2;
+            max-width: 850px;
+            margin: 0 auto;
+            margin-bottom: 70px;
+            transition: color 0.3s ease;
+        }
+
+        .what-we-offer p:hover {
+            color: #333;
+        }
+
+        .services {
+            max-width: 900px;
+            margin: 120px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .service-heading {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .service-heading h2 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 40px;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+
+        .service-heading h2:hover {
+            color: #007bff;
+        }
+
+        .service-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .service-item {
+            text-align: left;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            background-color: #aae3f5;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 380px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: #cbeff9;
+        }
+
+        .service-item i {
+            font-size: 3.5em;
+            color: #007bff;
+            margin-bottom: 30px;
+            align-self: center;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .service-item i:hover {
+            color: #0056b3;
+            transform: scale(1.15);
+        }
+
+        .service-item h3 {
+            font-size: 2em;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #222;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .service-item h3:hover {
+            color: #007bff;
+        }
+
+        .service-item p {
+            font-size: 1.15em;
+            color: #555;
+            line-height: 1.9;
+            transition: color 0.3s ease;
+        }
+
+        .service-item p:hover {
+            color: #333;
+        }
+
+        .testimonials {
+            padding: 10px 10px;
+            text-align: center;
+            background-color: #81e0d2;
+            animation: fadeInBackground 5s infinite alternate;
+            border-radius: 15px;
+            margin-top: 40px;
+            transition: background-color 0.3s ease;
+        }
+
+        @keyframes fadeInBackground {
+            from { background-color: #b7eade; }
+            to { background-color: #90c7ab; }
+        }
+
+        .testimonials:hover {
+            background-color: #f0f0f0;
+        }
+
+        .testimonials h2 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 70px;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+
+        .testimonials h2:hover {
+            color: #007bff;
+        }
+
+        .testimonial-item {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+
+        .testimonial-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f8f8f8;
+        }
+
+        .testimonial-item p {
+            font-size: 1.3em;
+            color: #444;
+            line-height: 2;
+            font-style: italic;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .testimonial-item p:hover {
+            color: #222;
+        }
+
+        .testimonial-item cite {
+            display: block;
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #007bff;
+            text-align: right;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .testimonial-item cite:hover {
+            color: #004080;
+        }
+
+        .contact-form {
+            max-width: 350px;
+            margin: 60px auto;
+            padding: 50px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: #66c8c3;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(to bottom, #ffffff, #f8f8f8);
+            transform: translateY(0);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 25px rgba(0, 0, 0, 0.2);
+            background-color: #f0f0f0;
+        }
+
+        .contact-form h2 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 60px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+
+        .contact-form h2:hover {
+            color: #007bff;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.2em;
+            color: #333;
+            transition: color 0.3s ease;
+        }
+
+        .contact-form label:hover {
+            color: #007bff;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 1.15em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 7px rgba(0, 123, 255, 0.5);
+        }
+
+        .contact-form input:hover,
+        .contact-form textarea:hover {
+            box-shadow: 0 3px 6px rgba(0, 123, 255, 0.2);
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 180px;
+        }
+
+        .contact-form button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            align-self: flex-start;
+            font-size: 1.3em;
+            font-weight: 600;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-form button:hover {
+            background-color: #0056b3;
+            transform: translateY(-4px);
+            box-shadow: 0 7px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 35px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 120px;
+            animation: slideInFooter 1s ease-out;
+            box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        @keyframes slideInFooter {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        footer:hover {
+            background-color: #444;
+        }
+
+        footer .footer-logo {
+            font-size: 2em;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-logo:hover {
+            color: #007bff;
+        }
+
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.7em;
+            transition: color 0.3s ease, transform 0.2s ease;
+            display: inline-block;
+        }
+
+        footer .social-icons a:hover {
+            color: #007bff;
+            transform: translateY(-2px) scale(1.2);
+        }
+
+        .mentor-section {
+            max-width: 1000px;
+            margin: 120px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .mentor-section h2 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 50px;
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            transition: color 0.3s ease;
+        }
+
+        .mentor-section h2:hover {
+            color: #007bff;
+        }
+
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-gap: 50px;
+            margin-top: 30px;
+        }
+
+        .mentor {
+            padding: 10px;
+            border: 1px solid #0ab5ee;
+            border-radius: 12px;
+            text-align: center;
+            background-color: #daeff9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mentor:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: #f8f8f8;
+        }
+
+        .mentor img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .mentor img:hover {
+            transform: scale(1.08);
+        }
+
+        .mentor-name {
+            font-size: 1.7em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #222;
+            font-family: 'Montserrat', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .mentor-name:hover {
+            color: #007bff;
+        }
+
+        .mentor-title {
+            font-size: 1.2em;
+            color: #555;
+            margin-bottom: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .mentor-title:hover {
+            color: #333;
+        }
+
+        
+
+        @media (max-width: 760px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                margin-top: 0px;
+            }
+
+            nav ul li {
+                margin-left: 0;
+                margin-top: 0px;
+            }
+
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .services {
+                grid-template-columns: 1fr;
+            }
+
+            .mentor-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        /* Canvas Styles */
+        #gradient-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -100;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="gradient-canvas"></canvas>
+    <header>
+        <nav>
+            <img src="images/Megs.logo.jpg" alt="background" height="70" width="70">
+            <div class="logo">Meg's Helping Hand</div>
+            <ul>
+                <li><a href="#what-we-offer">What We Offer</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                 <li><a href="#mentors">Mentors</a></li>
+                <li><a href="https://forms.gle/57efUKcjT9xnbL8N9">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Unlock Your Career Potential</h1>
+            <p>Empowering you to achieve your career goals with personalized guidance and support.</p>
+            <button class="get-started-btn">Get Started</button>
+        </section>
+
+        <section id="what-we-offer" class="what-we-offer">
+            <h2>What We Offer</h2>
+            <p>We provide comprehensive career services, including personalized mentoring, resume building, interview preparation, and networking strategies, to help you succeed in your career journey.</p>
+        </section>
+
+        <section id="services" class="services">
+            <div class="service-heading">
+                <h2>Our Services</h2>
+            </div>
+            <div class="service-list">
+                <div class="service-item">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Mentorship & Guidance</h3>
+                    <p>One-on-one guidance from experienced mentors tailored to your specific career needs.</p>
+                </div>
+                <div class="service-list">
+                    <div class="service-item">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>CV Reviews</h3>
+                        <p>One-on-one guidance from experienced mentors tailored to your specific career needs.</p>
+                    </div>
+            <div class="service-list">
+                <div class="service-item">
+                    <i class="fas fa-user-graduate"></i>
+                    <h3>Linkedin Optimization</h3>
+                    <p>One-on-one guidance from experienced mentors tailored to your specific career needs.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>Job Referrals</h3>
+                    <p>Crafting a professional resume that highlights your skills and experience to stand out to employers.</p>
+                </div>
+                <div class="service-item">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>1:1 Coaching Sessions</h3>
+                    <p>Developing your interview skills and confidence through mock interviews and expert feedback.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials">
+            <h2>Testimonials</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-item">
+                    <p>"Meg's Helping Hand provided invaluable support in my job search. The personalized mentoring and resume assistance helped me land my dream job!"</p>
+                    <cite>- Sarah M., Software Engineer</cite>
+                </div>
+                <div class="testimonial-item">
+                    <p>"I was struggling to prepare for interviews, but the mock interviews and feedback I received were incredibly helpful. Thank you!"</p>
+                    <cite>- John K., Project Manager</cite>
+                </div>
+                <div class="testimonial-item">
+                    <p>"The services provided by Meg's Helping Hand were instrumental in helping me transition to a new career path. I am forever grateful!"</p>
+                    <cite>- Jessica L., Marketing Specialist</cite>
+                </div>
+            </div>
+        </section>
+
+        <section id="mentors" class="mentor-section">
+            <h2>Meet Our Mentors</h2>
+            <div class="mentor-slider">
+                 <div class="mentor">
+                    <img src="images/manjunath1.jpg" alt="manjunath">
+                    <div class="mentor-name">Manjunath</div>
+                    <div class="mentor-title">Senior Transaction Processor - Mphasis | 3.5+ Years</div>
+                </div>
+                <div class="mentor">
+                    <img src="images/lakshmi.jpg" alt="lakshmi">
+                    <div class="mentor-name">Lakshmi</div>
+                    <div class="mentor-title">Senior Process Executive - Cognizant | 3.4+ Years</div>
+                </div>
+                <div class="mentor">
+                    <img src="images/Kumarswami.jpeg" alt="Kumarswami 3">
+                    <div class="mentor-name">Kumarswami</div>
+                    <div class="mentor-title">Senior Process Executive - Cognizant | 3.5+ Years</div>
+                </div>
+                <div class="mentor">
+                    <img src="images/karunakar.jpeg" alt="karunakar">
+                    <div class="mentor-name">Karunakar</div>
+                    <div class="mentor-title">Senior Associate - Wipro | 3.5+ Years</div>
+                </div>
+                <div class="mentor">
+                    <img src="images/jayshree.jpg" alt="jayshree">
+                    <div class="mentor-name">Jayashree</div>
+                    <div class="mentor-title">Treasuly Analyst - Bridgestone | 3.5+ Years</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-form" class="contact-form">
+            <h2>Contact Us</h2>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <img src="images/Megs.logo.jpg" alt="logo" height="50" width="65">
+        <div class="footer-logo">Meg's Helping Hand</div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/people/Megs-Helping-Hand/61574764713225/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/megs_helping_hand/?igsh=NGxqdmsxbTh4dTdr&utm_source=qr#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://x.com/home"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/megs-helpinghand-978356359"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+         <p>&copy; 2025 Meg's Helping Hand. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.testimonial-slider').slick({
+          infinite: true,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 5000,
+          dots: true,
+          arrows: false,
+        });
+
+        $('.mentor-slider').slick({
+            infinite: true,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 4000,
+            dots: true,
+            prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+            nextArrow: '<button type="button" class="slick-next">Next</button>',
+            responsive: [
+                {
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+      });
+    </script>
+    <script>
+        // 3D Background Scene Setup (Three.js)
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.domElement.style.position = 'fixed';
+        renderer.domElement.style.top = '0';
+        renderer.domElement.style.left = '0';
+        renderer.domElement.style.zIndex = -100;
+        document.body.appendChild(renderer.domElement);
+
+        // Starfield background
+        const starsGeometry = new THREE.BufferGeometry();
+        const starsMaterial = new THREE.PointsMaterial({ color: 0xaaaaaa, size: 1.5, sizeAttenuation: true });
+        const starVertices = [];
+        for (let i = 0; i < 10000; i++) {
+            const x = (Math.random() - 0.5) * 2000;
+            const y = (Math.random() - 0.5) * 2000;
+            const z = -Math.random() * 1000;
+            starVertices.push(x, y, z);
+        }
+        starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+        const stars = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(stars);
+
+        // Ambient light
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        // Create a subtle, moving shape - Sphere
+        const shapeGeometry = new THREE.SphereGeometry(2, 32, 32);
+        const shapeMaterial = new THREE.MeshStandardMaterial({ color: 0x007bff, roughness: 0.8, metalness: 0.1, transparent: true, opacity: 0.6 });
+        const movingShape = new THREE.Mesh(shapeGeometry, shapeMaterial);
+        scene.add(movingShape);
+        movingShape.position.set(0, 0, -7);
+
+
+        // Camera position
+        camera.position.z = 5;
+
+        // Orbit Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 0.2;
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Subtle shape animation
+            movingShape.position.x = Math.sin(Date.now() * 0.001) * 2;
+            movingShape.position.y = Math.cos(Date.now() * 0.0015) * 2;
+            movingShape.rotation.x += 0.01;
+            movingShape.rotation.y += 0.01;
+            movingShape.rotation.z += 0.01;
+
+            stars.position.z = camera.position.z - 500;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Canvas Gradient Background
+        const canvas = document.getElementById('gradient-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#6ab7ff');
+        gradient.addColorStop(1, '#fff');
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            gradient.addColorStop(0, '#6ab7ff');
+            gradient.addColorStop(1, '#fff');
+
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+</body>
+</html>
